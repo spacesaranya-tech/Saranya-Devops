@@ -1,1 +1,3 @@
+Good Morning Team!
+I'm doing the practice of freestyle configuration in jenkins. 
 
