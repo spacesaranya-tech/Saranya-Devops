@@ -1,68 +1,30 @@
 pipeline {
-
-    agent any
+    agent { label 'linux' }
 
     stages {
 
+        stage('Checkout') {
+            steps {
+                echo 'Checking out source code...'
+            }
+        }
+
         stage('Build') {
             steps {
-                echo 'Stage 1 : Build Started'
-
-                bat 'dir'
-
-                echo 'Project downloaded successfully.'
+                sh 'echo "Building on $(hostname)"'
             }
         }
 
         stage('Test') {
             steps {
-
-                echo 'Stage 2 : Testing Started'
-
-                script {
-
-                    def content = readFile('hello.txt')
-
-                    if(content.contains("ERROR")){
-
-                        error("Validation Failed : hello.txt contains ERROR")
-
-                    }
-
-                    else{
-
-                        echo "Validation Passed"
-
-                    }
-                }
+                sh 'echo "Running Tests..."'
             }
         }
 
         stage('Deploy') {
             steps {
-
-                echo 'Stage 3 : Deploy Started'
-
-                echo 'Deployment Successful'
-
+                sh 'echo "Deploying Application..."'
             }
         }
     }
-
-    post {
-
-        success {
-
-            echo 'Pipeline Completed Successfully'
-
-        }
-
-        failure {
-
-            echo 'Pipeline Failed'
-
-        }
-
-    }
-
 }
